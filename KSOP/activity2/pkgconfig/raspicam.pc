@@ -1,0 +1,15 @@
+# Package Information for pkg-config
+
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir_old=${prefix}/include/raspicam
+includedir_new=${prefix}/include/raspicam
+
+
+Name: raspicam
+Description: Open Source Computer Vision Library
+Version: 1.2.0
+Libs: -L${exec_prefix}/lib -lraspicam -lraspicam_cv
+Libs.private: -ldl -lm -lpthread -lrt
+Cflags: -I${includedir_old} -I${includedir_new}

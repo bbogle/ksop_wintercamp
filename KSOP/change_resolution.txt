@@ -1,0 +1,6 @@
+$sudo nano /boot/config.txt
+
+
+#framebuffer_width=1280
+#framebuffer_height=720
+
