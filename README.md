@@ -19,7 +19,14 @@ Advanced Options -> Expand Filesystem
 
 원격 PC에서 계속 진행.
 
+원격 PC(노트북)에서 라즈베리파이에 접속 후 터미널창을 열어서 KSOP 프로젝트에 사용되는 코드 다운로드
+
+~$ cd Desktop
+~$ git clone https://github.com/bbogle/ksop_wintercamp
+
+바탕화면에 ksop_wintercamp 폴더가 생겼는지 확인
 
 라즈베리파이 전원 종료 명령
 ~$ sudo shutdown now
 
+이후 모든 작업은 노트북에서 VNC 뷰어 프로그램으로 진행한다.
