@@ -11,6 +11,7 @@ Advanced Options -> Expand Filesystem
 환경설정 종료 후 재부팅
 
 3. 연결된 Wi-Fi SSID 확인, IP 확인
+   ~$ ifconfig 명령어 입력 해서 wlan0 부분에 나오는 192.168.~~~~~~   아이피 주소를 확인.
 
 4. PC에서 VNC뷰어 프로그램으로 접속
 
