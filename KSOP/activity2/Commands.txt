@@ -1,24 +1,37 @@
-sudo apt-get raspi-config
+// 해상도 강제조정
+sudo nano /boot/config.txt
+// 아래 부분을 찾아서 1280*720 또는 1920*1080 으로 값을 변경하고, 주석(#)을 제거한 뒤 저장한다.
+// 저장방법: ctrl+x 누른 뒤, y 누르고 엔터
+#framebuffer_width=1280
+#framebuffer_height=720
 
+// 불필요한 프로그램(용량을 많이 차지하는 프로그램) 삭제하기
 sudo apt-get purge wolfram-engine
 sudo apt-get purge libreoffice*
 sudo apt-get clean
 sudo apt-get autoremove
 
-
+// 재부팅
 sudo reboot
+// 디스크 용량 확인
 df -h
 
 ///////update reapberry pi3
 sudo apt-get upgrade
 sudo apt-get update
 
+// 메모리용량 늘리기
+// OpenCV를 컴파일하는 도중에 메모리 부족 문제가 생기지 않도록...
 sudo nano /etc/dphys-swapfile
 #set this value CONF_SWAPSIZE=1024
 
 sudo /etc/init.d/dphys-swapfile stop
 sudo /etc/init.d/dphys-swapfile start
 
+// opencv 설치 전에 필요한 컴파일러, 라이브러리 패키지 설치하기
+// OpenCV 소스 코드를 빌드하려면 빌드 관련 도구나 필요한 라이브러리 패키지를 라즈베리파이에 미리 설치해두어야 합니다. 
+// 예를 들어, 정지 영상 포맷과 관련된 jpeg 라이브러리나 png 라이브러리, 비디오 파일 포맷 또는 스트리밍 관련 라이브러리 
+// 같은 것들을 미리 설치해야 정상적으로 빌드됩니다.
 sudo apt-get install build-essential cmake pkg-config
 sudo apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev
 sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
@@ -26,31 +39,30 @@ sudo apt-get install libxvidcore-dev libx264-dev
 sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
 sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
 sudo apt-get install libgtk2.0-dev libgtk-3-dev
-sudo apt-get install libatlas-base-dev gfortra
+sudo apt-get install libatlas-base-dev gfortran
 
 #package update
-sudo apt-get upgrade
+sudo apt-get upgrade             // 시간이 오래 걸림
 sudo apt-get update
 
 #create opencv directory and clone opencv and opencv_contrib
 mkdir opencv
 cd ~/opencv
-git clone https://github.com/opencv/opencv.git
-git clone https://github.com/opencv/opencv_contrib.git
+git clone https://github.com/opencv/opencv.git               // 미리 다운받아놓았음.  ls 명령으로 확인
+git clone https://github.com/opencv/opencv_contrib.git       // 미리 다운받아놓았음.  ls 명령으로 확인
 
 #create build directory
 mkdir build
 cd build
 
 ////////////////////create make file using CMAKE (observe verbose, here you can find path for openCV install directories)
+/////////////////// 계속 오류나면 https://deepdeepit.tistory.com/19 블로그 참조 ///////////////////////////////////////////
 cmake -D CMAKE_BUILD_TYPE=Release \
 -DCMAKE_EXTRA_MODULES_PATH=../opencv_contrib/modules/ \
--D CMAKE_INSTALL_PREFIX=/usr/local ../opencv \
--DBUILD_opencv_java=OFF \
-–DBUILD_opencv_python2=OFF \
--DBUILD_opencv_python3=OFF
+-D CMAKE_INSTALL_PREFIX=/usr/local ../opencv
 
-make –j4
+
+make –j4 | tee build_messages.txt          //  혹시라도 에러가 발생할까봐 컴파일 메시지는 build_messages.txt 파일에도 저장
 sudo make install
 sudo ldconfig
 
@@ -74,10 +86,6 @@ g++ -Wall -c "%f"
 
 geany Build
 g++ -Wall -o "%e" "%f"
-
-geany open cv path for build
-g++ $(pkg-config opencv4 --cflags --libs) -o %e %f
-
 
 geany open cv path for build
 g++ $(pkg-config opencv4 --cflags --libs) -o %e %f
