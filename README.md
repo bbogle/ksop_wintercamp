@@ -14,6 +14,8 @@ Advanced Options -> Expand Filesystem
    ~$ ifconfig 명령어 입력 해서 wlan0 부분에 나오는 192.168.~~~~~~   아이피 주소를 확인.
 
 4. PC에서 VNC뷰어 프로그램으로 접속
+  user : pi
+  password : raspberry
 
 원격 PC에서 계속 진행.
 
