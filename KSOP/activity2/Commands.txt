@@ -64,6 +64,12 @@ PKG_CONFIG PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig	// add this path
 export PKG_CONFIG_PATH
 
 
+/// Geany Editor program - set build Commands
+geany Compile 
+g++ -Wall -c "%f"
+
+geany Build
+g++ -Wall -o "%e" "%f"
 
 geany open cv path for build
 g++ $(pkg-config opencv4 --cflags --libs) -o %e %f
