@@ -16,3 +16,8 @@ Advanced Options -> Expand Filesystem
 4. PC에서 VNC뷰어 프로그램으로 접속
 
 원격 PC에서 계속 진행.
+
+
+라즈베리파이 전원 종료 명령
+~$ sudo shutdown now
+
